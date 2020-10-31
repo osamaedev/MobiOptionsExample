@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 import android.widget.LinearLayout;
 import android.widget.Toast;
@@ -41,6 +43,8 @@ public class MainActivity extends AppCompatActivity {
 
     private MobiOptionsBanner mobiOptionsBanner;
     private MobiOptionsInterstitial interstitial;
+
+    private Handler handler = new Handler(Looper.getMainLooper());
 
 
     private MobiOptionRewardedAd rewardedAd;
@@ -100,80 +104,84 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        interstitial = new MobiOptionsInterstitial(this, "Interstitial_2");
-        interstitial.loadAd();
-        interstitial.setMobiInterstitialListener(new MobiInterstitialListener() {
-            @Override
-            public void onDisplayed(String adsProvider) {
-                Log.d(TAG, "onDisplayed: The interstitial is displayed, ads provider => " + adsProvider);
-            }
-
-            @Override
-            public void onClosed(String adsProvider) {
-                Log.d(TAG, "onClosed: Interstitial closed => ads provider => " + adsProvider);
-            }
-
-            @Override
-            public void onError(String adsProvider, MobiInterstitialError error) {
-                Log.d(TAG, "onError: Error getting the interstitial ads provider => " + adsProvider + "\n errors => " + error.message);
-            }
-
-            @Override
-            public void onLoaded(String adsProvider) {
-                Log.d(TAG, "onLoaded: Interstitial loaded successfully, adsProvider => " + adsProvider);
-            }
-
-            @Override
-            public void onClicked(String adsProvider) {
-
-            }
-        });
-        interstitialButton.setOnClickListener((v) -> {
-            if (interstitial.isLoaded()) {
-                interstitial.show();
-            } else {
-                Toast.makeText(this, "Not loaded yet", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-
-        rewardedAd = new MobiOptionRewardedAd(this, "Rewarded Video_3");
-        rewardedAd.load(new MobiRewardAdLoadListener() {
-            @Override
-            public void onRewardedAdLoaded(String adsProvider) {
-                Log.d(TAG, "onRewardedAdLoaded: The rewarded ad is loaded successfully, Provider => " + adsProvider);
-            }
-
-            @Override
-            public void onRewardedAdFailedToLoad(String adsProvider, MobiRewardAdError error) {
-                Log.d(TAG, "onRewardedAdFailedToLoad: Error in loading the rewarded ad, adsProvider => " + adsProvider + ", errors" + error.message);
-            }
-        });
-
-
-        rewardedButton.setOnClickListener((v) -> {
-            rewardedAd.show(new MobiRewardAdListener() {
+        handler.postDelayed(() -> {
+            interstitial = new MobiOptionsInterstitial(this, "Interstitial_2");
+            interstitial.loadAd();
+            interstitial.setMobiInterstitialListener(new MobiInterstitialListener() {
                 @Override
-                public void onRewardedAdOpened(String adsProvider) {
-                    Log.d(TAG, "onRewardedAdOpened: ads Provider" + adsProvider);
+                public void onDisplayed(String adsProvider) {
+                    Log.d(TAG, "onDisplayed: The interstitial is displayed, ads provider => " + adsProvider);
                 }
 
                 @Override
-                public void onRewardedAdClosed(String adProvider) {
-                    Log.d(TAG, "onRewardedAdClosed: ads Provider" + adProvider);
+                public void onClosed(String adsProvider) {
+                    Log.d(TAG, "onClosed: Interstitial closed => ads provider => " + adsProvider);
                 }
 
                 @Override
-                public void onUserEarnedReward(String adProvider) {
-                    Log.d(TAG, "onUserEarnedReward: ads Provider" + adProvider);
+                public void onError(String adsProvider, MobiInterstitialError error) {
+                    Log.d(TAG, "onError: Error getting the interstitial ads provider => " + adsProvider + "\n errors => " + error.message);
                 }
 
                 @Override
-                public void onRewardedAdError(String adProvider, MobiRewardAdError error) {
-                    Log.d(TAG, "onRewardedAdError: Rewarded ad errors => " + error.message);
+                public void onLoaded(String adsProvider) {
+                    Log.d(TAG, "onLoaded: Interstitial loaded successfully, adsProvider => " + adsProvider);
+                }
+
+                @Override
+                public void onClicked(String adsProvider) {
+
                 }
             });
-        });
+            interstitialButton.setOnClickListener((v) -> {
+                if (interstitial.isLoaded()) {
+                    interstitial.show();
+                } else {
+                    Toast.makeText(this, "Not loaded yet", Toast.LENGTH_SHORT).show();
+                }
+            });
+
+
+            rewardedAd = new MobiOptionRewardedAd(this, "Rewarded Video_3");
+            rewardedAd.load(new MobiRewardAdLoadListener() {
+                @Override
+                public void onRewardedAdLoaded(String adsProvider) {
+                    Log.d(TAG, "onRewardedAdLoaded: The rewarded ad is loaded successfully, Provider => " + adsProvider);
+                }
+
+                @Override
+                public void onRewardedAdFailedToLoad(String adsProvider, MobiRewardAdError error) {
+                    Log.d(TAG, "onRewardedAdFailedToLoad: Error in loading the rewarded ad, adsProvider => " + adsProvider + ", errors" + error.message);
+                }
+            });
+            rewardedButton.setOnClickListener((v) -> {
+                rewardedAd.show(new MobiRewardAdListener() {
+                    @Override
+                    public void onRewardedAdOpened(String adsProvider) {
+                        Log.d(TAG, "onRewardedAdOpened: ads Provider" + adsProvider);
+                    }
+
+                    @Override
+                    public void onRewardedAdClosed(String adProvider) {
+                        Log.d(TAG, "onRewardedAdClosed: ads Provider" + adProvider);
+                    }
+
+                    @Override
+                    public void onUserEarnedReward(String adProvider) {
+                        Log.d(TAG, "onUserEarnedReward: ads Provider" + adProvider);
+                    }
+
+                    @Override
+                    public void onRewardedAdError(String adProvider, MobiRewardAdError error) {
+                        Log.d(TAG, "onRewardedAdError: Rewarded ad errors => " + error.message);
+                    }
+                });
+            });
+
+        }, 8000);                   // This 8 second is just to be sure I am after the delay of the library
+
+
+        // native ads
         setUpNativeAds();
     }
 

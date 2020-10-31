@@ -37,7 +37,7 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 
-    implementation 'com.github.osamaedev:MobiOptionsAds:1.1.1'
+    implementation 'com.github.osamaedev:MobiOptionsAds:1.1.5'
     implementation files('libs/unity-ads.aar')
     implementation files('libs/nativetemplates.aar')
 
