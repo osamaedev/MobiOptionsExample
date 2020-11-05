@@ -63,7 +63,6 @@ public class MainActivity extends AppCompatActivity {
         RootApp.setupMobiOptionsAds(new MobiInitializationListener() {
             @Override
             public void onInitializationSuccess() {
-                Log.d(TAG, "onInitializationSuccess: Initialisation completed successfully");
                 setUpAds();
             }
 
@@ -207,4 +206,14 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    protected void onDestroy() {
+        if (mobiOptionsBanner != null) {
+            mobiOptionsBanner.destroy();
+        }
+        if (nativeAd != null) {
+            nativeAd.destroy();
+        }
+        super.onDestroy();
+    }
 }
