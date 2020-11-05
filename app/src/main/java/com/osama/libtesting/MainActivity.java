@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
     private MobiOptionsBanner mobiOptionsBanner;
     private MobiOptionsInterstitial interstitial;
 
-    private Handler handler = new Handler(Looper.getMainLooper());
+    private final Handler handler = new Handler(Looper.getMainLooper());
 
 
     private MobiOptionRewardedAd rewardedAd;
