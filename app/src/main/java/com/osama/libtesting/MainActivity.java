@@ -80,7 +80,6 @@ public class MainActivity extends AppCompatActivity {
                 new FacebookBannerSize(FacebookBannerSize.FACEBOOK_BANNER_HEIGHT_90)
         ), "Banner_0");
         mobiOptionsBanner.load();
-
         mobiOptionsBanner.setMobiBannerListener(new MobiBannerListener() {
             @Override
             public void onLoaded(String adsProvider) {
