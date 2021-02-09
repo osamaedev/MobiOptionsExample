@@ -10,27 +10,29 @@ import android.util.Log;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
-import com.osama.mobioptionsads.MobiInitializationListener;
-import com.osama.mobioptionsads.banner.MobiBannerListener;
-import com.osama.mobioptionsads.banner.MobiOptionBannerError;
-import com.osama.mobioptionsads.banner.MobiOptionsBanner;
-import com.osama.mobioptionsads.banner.MobiOptionsBannerSize;
-import com.osama.mobioptionsads.banner.size.AdmobBannerSize;
-import com.osama.mobioptionsads.banner.size.FacebookBannerSize;
-import com.osama.mobioptionsads.banner.size.UnityBannerSize;
-import com.osama.mobioptionsads.interstitial.MobiInterstitialError;
-import com.osama.mobioptionsads.interstitial.MobiInterstitialListener;
-import com.osama.mobioptionsads.interstitial.MobiOptionsInterstitial;
-import com.osama.mobioptionsads.nativeAd.MobiNativeAdError;
-import com.osama.mobioptionsads.nativeAd.MobiNativeAdListener;
-import com.osama.mobioptionsads.nativeAd.MobiNativeAdSize;
-import com.osama.mobioptionsads.nativeAd.MobiOptionsNativeAd;
-import com.osama.mobioptionsads.nativeAd.size.NativeAdFacebookSize;
-import com.osama.mobioptionsads.nativeAd.size.NativeAdmobSize;
-import com.osama.mobioptionsads.rewarded.MobiOptionRewardedAd;
-import com.osama.mobioptionsads.rewarded.MobiRewardAdError;
-import com.osama.mobioptionsads.rewarded.MobiRewardAdListener;
-import com.osama.mobioptionsads.rewarded.MobiRewardAdLoadListener;
+import com.lib.mobioptionsads.MobiInitializationListener;
+import com.lib.mobioptionsads.banner.MobiBannerListener;
+import com.lib.mobioptionsads.banner.MobiOptionBannerError;
+import com.lib.mobioptionsads.banner.MobiOptionsBanner;
+import com.lib.mobioptionsads.banner.MobiOptionsBannerSize;
+import com.lib.mobioptionsads.banner.size.AdmobBannerSize;
+import com.lib.mobioptionsads.banner.size.FacebookBannerSize;
+import com.lib.mobioptionsads.banner.size.UnityBannerSize;
+import com.lib.mobioptionsads.interstitial.MobiInterstitialError;
+import com.lib.mobioptionsads.interstitial.MobiInterstitialListener;
+import com.lib.mobioptionsads.interstitial.MobiOptionsInterstitial;
+import com.lib.mobioptionsads.nativeAd.MobiNativeAdError;
+import com.lib.mobioptionsads.nativeAd.MobiNativeAdListener;
+import com.lib.mobioptionsads.nativeAd.MobiNativeAdSize;
+import com.lib.mobioptionsads.nativeAd.MobiOptionsNativeAd;
+import com.lib.mobioptionsads.nativeAd.size.NativeAdFacebookSize;
+import com.lib.mobioptionsads.nativeAd.size.NativeAdmobSize;
+import com.lib.mobioptionsads.rewarded.MobiOptionRewardedAd;
+import com.lib.mobioptionsads.rewarded.MobiRewardAdError;
+import com.lib.mobioptionsads.rewarded.MobiRewardAdListener;
+import com.lib.mobioptionsads.rewarded.MobiRewardAdLoadListener;
+import com.osama.libtesting.R;
+import com.osama.libtesting.RootApp;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -78,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
                 new AdmobBannerSize(AdmobBannerSize.ADMOB_SMART_BANNER),
                 new UnityBannerSize(320, 59),
                 new FacebookBannerSize(FacebookBannerSize.FACEBOOK_BANNER_HEIGHT_90)
-        ), "Banner_0");
+        ), "Banner_0");                                                     // banner_0
         mobiOptionsBanner.load();
         mobiOptionsBanner.setMobiBannerListener(new MobiBannerListener() {
             @Override
@@ -103,8 +105,11 @@ public class MainActivity extends AppCompatActivity {
         });
 
         handler.postDelayed(() -> {
-            interstitial = new MobiOptionsInterstitial(this, "Interstitial_2");
+            interstitial = new MobiOptionsInterstitial(this, "Interstitial_2");         //interstitial_0
             interstitial.loadAd();
+
+            Log.d(TAG, "setUpAds: => the interstitial id => " + interstitial.getInterstitialAdId());
+
             interstitial.setMobiInterstitialListener(new MobiInterstitialListener() {
                 @Override
                 public void onDisplayed(String adsProvider) {
@@ -140,7 +145,7 @@ public class MainActivity extends AppCompatActivity {
             });
 
 
-            rewardedAd = new MobiOptionRewardedAd(this, "Rewarded Video_3");
+            rewardedAd = new MobiOptionRewardedAd(this, "Rewarded Video_3");            //rewardedvideo_0
             rewardedAd.load(new MobiRewardAdLoadListener() {
                 @Override
                 public void onRewardedAdLoaded(String adsProvider) {
@@ -185,7 +190,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void setUpNativeAds() {
         MobiNativeAdSize size = new MobiNativeAdSize(NativeAdmobSize.GNT_SMALL_TEMPLATE, NativeAdFacebookSize.WIDTH_280_HEIGHT_250);
-        nativeAd = new MobiOptionsNativeAd(this, "Native_4", size, nativeAdContainer);
+        nativeAd = new MobiOptionsNativeAd(this, "Native_4", size, nativeAdContainer);          // native_0
         nativeAd.load(new MobiNativeAdListener() {
             @Override
             public void onAdLoaded(String adsProvider) {

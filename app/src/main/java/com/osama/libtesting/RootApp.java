@@ -2,8 +2,9 @@ package com.osama.libtesting;
 
 import android.app.Application;
 
-import com.osama.mobioptionsads.MobiInitializationListener;
-import com.osama.mobioptionsads.MobiOptionsAdsInit;
+
+import com.lib.mobioptionsads.MobiInitializationListener;
+import com.lib.mobioptionsads.MobiOptionsAdsInit;
 
 import java.util.Collections;
 
@@ -19,7 +20,7 @@ public class RootApp extends Application {
             MobiOptionsAdsInit.setAdmobTestDevices(Collections.singletonList("YOUR-TEST-DEVICE-ID-PLACED-HERE"));
             MobiOptionsAdsInit.setDisableStoreCheck(true);                                  // true to simulate the play store behaviour
             mobiOptionsAdsInit = MobiOptionsAdsInit.build(rootApplication,
-                    "59VXT7z2sIUcjY8h8KSU9nYJuWvSiU",               //     Wc2RO1wTGYDvtR4bfaxK2ZABoAxFg1
+                    "59VXT7z2sIUcjY8h8KSU9nYJuWvSiU",                     // Wc2RO1wTGYDvtR4bfaxK2ZABoAxFg1
                     true,                                                       // If you set this to false, the list of the test devices will be ignored.
                     listener);
         } else if (mobiOptionsAdsInit.isInitialized()) {
